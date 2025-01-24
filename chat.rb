@@ -58,18 +58,14 @@ while user_input != "bye"
       }
     )
 
-    # Dig through the JSON response to get the content
-    choices = api_response.fetch("choices")
-    first_choice = choices.at(0)
-    message = first_choice.fetch("message")
-    assistant_response = message["content"]
+    ai_message = api_response["choices"][0].fetch("message").fetch("content")
     
     # Print the assistant's response
-    puts assistant_response
+    puts ai_message
     puts "-"*50
 
     # Add the assistant's response to the message list
-    message_list.push({ "role" => "assistant", "content" => assistant_response })
+    message_list.push({ "role" => "assistant", "content" => ai_message })
   end
 end
 
