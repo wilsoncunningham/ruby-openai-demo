@@ -5,14 +5,6 @@ require "pry"
 
 client = OpenAI::Client.new(access_token: ENV.fetch("OPENAI_API_KEY"))
 
-
-# puts "Hello! How can I help you today?"
-# puts "-"*50
-
-# query = gets.chomp
-# # query = "How do I compute 5*5?"
-# puts "\n"
-
 message_list = [
   {
     "role" => "system",
@@ -20,35 +12,19 @@ message_list = [
   }
 ]
 
-# Call the API to get the next message from GPT
-# api_response = client.chat(
-#   parameters: {
-#     model: "gpt-3.5-turbo",
-#     messages: message_list
-#   }
-# )
 
-# ai_message = api_response["choices"][0].fetch("message").fetch("content")
-# puts ai_message
-# puts "-"*50
-
-
-
-
-######################
 user_input = ""
 
-
 puts "Hello! How can I help you today?"
+
 while user_input != "bye"
-  # puts "Hello! How can I help you today?"
   puts "-"*50
   user_input = gets.chomp
   
   # Add the user's message to the message list
   if user_input != "bye"
     puts "\n"
-    message_list.append({ "role" => "user", "content" => user_input })
+    message_list.append({"role" => "user","content" => user_input})
 
     # Send the message list to the API
     api_response = client.chat(
@@ -60,7 +36,6 @@ while user_input != "bye"
 
     ai_message = api_response["choices"][0].fetch("message").fetch("content")
     
-    # Print the assistant's response
     puts ai_message
     puts "-"*50
 
@@ -68,8 +43,6 @@ while user_input != "bye"
     message_list.push({ "role" => "assistant", "content" => ai_message })
   end
 end
-
-########################
 
 puts "Goodbye! Have a great day!"
 
