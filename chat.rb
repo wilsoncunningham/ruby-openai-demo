@@ -1,9 +1,16 @@
 # Write your solution here!
 require "openai"
 require "dotenv/load"
+require "pry"
 
 client = OpenAI::Client.new(access_token: ENV.fetch("OPENAI_API_KEY"))
 
+
+puts "Hello! How can I help you today?"
+puts "-"*50
+
+query = gets.chomp
+# query = "How do I compute 5*5?"
 
 message_list = [
   {
@@ -12,7 +19,7 @@ message_list = [
   },
   {
     "role" => "user",
-    "content" => "Hello! What are the best spots for pizza in Chicago?"
+    "content" => query
   }
 ]
 
@@ -24,4 +31,10 @@ api_response = client.chat(
   }
 )
 
-pp api_response
+# pp api_response
+
+ai_message = api_response["choices"][0].fetch("message").fetch("content")
+puts ai_message
+puts "-"*50
+
+# binding.pry
